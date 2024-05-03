@@ -19,7 +19,6 @@ class ArticleListAPIVIew(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
 class ArticleDetailAPIVIew(APIView):
     def get_object(self, pk):
         return get_object_or_404(Article, pk=pk)
