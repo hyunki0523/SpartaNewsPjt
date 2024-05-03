@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     
     # Third party
     'rest_framework',
+    'django_seed',
     
     # Local
     'accounts',
