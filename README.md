@@ -1,68 +1,134 @@
 
 ## * Description
 
-   * ### Project name : Sparta Market 
-스파르타만의 중고거래 플렛폼을 구현
+   * ### Project name : Sparta News 
+스파르타만의 뉴스 제공 서비스 구현
 
-   * ### Project duration : 2024-04-12 ~ 2024-04-09
-개인프로젝트이므로 본인이 설계 구현 모두 담당
+레퍼런스 : https://news.hada.io/
+
+   * ### Project duration : 2024-05-03 ~ 2024-05-10
+
+Tech Explorers 의 협업으로 제작됨.
+
 
 ## * Environment & Tech stack
 Window 환경에서 Pycham 사용. 
 
-Python(3.10) , Django Framework (4.2.11) , Bootstrap 사용
+VisualStudio ,Python(3.10) , Django Framework (4.2.11) , Bootstrap 사용
 
 Database : SQLite3 
 
+API 기능 점검 : Postman 이용.
 
 ## * Prerequisite
 
 Package|Version
----|---|
-asgiref            |3.8.1
-backports.zoneinfo |0.2.1
-Django             |4.2.11
-django-environ     |0.11.2
-pip                |24.0
-setuptools         |68.2.0
-sqlparse           |0.5.0
-typing_extensions  |4.11.0
-tzdata             |2024.1
-wheel              |0.41.2
+-----------------
+
+----|----|---
+
+alembic                        |1.13.1
+asgiref                        |3.7.2
+asttokens                      |2.4.1
+beautifulsoup4                 |4.12.3
+blinker                        |1.7.0
+bs4                            |0.0.2
+certifi                        |2023.11.17
+cffi                           |1.16.0
+charset-normalizer             |3.3.2
+click                          |8.1.7
+colorama                       |0.4.6
+cryptography                   |42.0.1
+decorator                      |5.1.1
+Django                         |4.2
+django-environ                 |0.11.2
+django-extensions              |3.2.3
+django-seed                    |0.3.1
+djangorestframework            |3.15.1
+djangorestframework-simplejwt  |5.3.1
+et-xmlfile                     |1.1.0
+exceptiongroup                 |1.2.0
+executing                      |2.0.1
+Faker                          |24.4.0
+Flask                          |3.0.2
+Flask-Migrate                  |4.0.5
+Flask-SQLAlchemy               |3.1.1
+greenlet                       |3.0.3
+idna                           |3.6
+ipython                        |8.22.2
+itsdangerous                   |2.1.2
+jedi                           |0.19.1
+Jinja2                         |3.1.3
+Mako                           |1.3.2
+MarkupSafe                     |2.1.5
+matplotlib-inline              |0.1.6
+openpyxl                       |3.1.2
+parso                          |0.8.3
+pexpect                        |4.9.0
+pillow                         |10.2.0
+pip                            |24.0
+prompt-toolkit                 |3.0.43
+psycopg2                       |2.9.9
+ptyprocess                     |0.7.0
+pure-eval                      |0.2.2
+pycparser                      |2.21
+Pygments                       |2.17.2
+PyJWT                          |2.8.0
+pypng                          |0.20220715.0
+python-dateutil                |2.9.0.post0
+pytz                           |2023.3.post1
+qrcode                         |7.4.2
+requests                       |2.31.0
+Send2Trash                     |1.8.2
+setuptools                     |65.5.0
+six                            |1.16.0
+slack-bolt                     |1.18.1
+slack_sdk                      |3.26.2
+soupsieve                      |2.5
+SQLAlchemy                     |2.0.27
+sqlparse                       |0.4.4
+stack-data                     |0.6.3
+toposort                       |1.10
+traitlets                      |5.14.2
+typing_extensions              |4.10.0
+tzdata                         |2024.1
+urllib3                        |2.1.0
+wcwidth                        |0.2.13
+Werkzeug                       |3.0.1
 
 
 ## * Roadmap
 
-- [x] 회원기능 (Accounts, app name: account)
+- [x] 회원기능 
     - [x] 회원가입, 로그인, 로그아웃
     - [x] 관리자계정
 - [x] 프로필 페이지
-  - [x] 찜 기능 (check_users:products/model/Post)
-  - [x] 팔로우 기능 (followings:accounts/model/User)
-  - [ ] 개인프로필 설정(이미지, 태그)
-- [x] 게시글 CRUD (Products, app name: post)
-    - [x] 게시글 기능(제목, 내용, 가격)
+  - [x] 찜 기능 
+  - [x] 팔로우 기능 
+  - [x] 개인프로필 설정(이미지, 태그)
+- [x] 게시글 CRUD 
+    - [x] 게시글 기능(제목, 내용)
+    - [x] 정렬 기능( 좋아요순, 최신순 )
+    - [x] 검색기능
     - [x] 로그인 권한을 바탕으로 CRUD 구현
     - [x] 댓글 CRUD
 
-
--  TODO
-- [ ] 이미지(media, Pillow)
-    - [ ] 개인프로필
-    - [ ] 게시글 이미지첨부
-- [ ] 게시글 검색 및 정렬
-
+- TODO
+- [ ] 배포
 ## * Use
 
-홈페이지의 접속과 동시에 모든 게시글 확인할 수 있는 메인페이지로 이동합니다.<br/> 
-이후 링크를 통해 로그인, 회원가입 페이지로, 게시글의 상세페이지로 이동이 가능합니다.<br/>
-로그인을 통해 권한을 부여 받은경우 글작성페이지 , 프로필 페이지로 이동이 가능하고<br/>
-회원정보수정, 회원탈퇴 기능이 이용가능 합니다. <br/>
-추가적으로 게시글의 찜 버튼과 상세페이지 내부의 댓글기능이 활성화 되며 <br/>
-타 이용자의 프로필 페이지(작성자의 프로필 버튼으로 이동가능) 방문시 팔로우기능이 활성화 됩니다. <br/>
-나의 프로필에서 본은계정을 팔로우한 수 를 확인할 수 있으며, 게시글 목록과 찜 목록을 확인하고 바로 이동가능합니다. <br/>
-게시글의 상세페이지에서 본인이 작성한 게시글 ,댓글 인경우 글 수정 및 삭제가 가능합니다. <br/><br/>
+별도의 템플릿 구현하지 않았으므로, postman 과 같은 API platform 을 통해 확인가능합니다.
+구현한 기능은 크게 유저, 게시글 로 나눌수 있으며
+유저의 경우
+ 회원가입, 로그인(JWT 사용, Token refresh 구현),
+ 로그아웃, 개인 프로필 페이지( '좋아요' 한 목록과 내가 작성한 글 확인가능)
+게시글의 경우
+ 기본적으로 게시글을 목록형태로 확인가능하고 , 검색과 정렬 기능(좋아요 순, 최신 순)을 지원합니다.
+ 로그인을 한 경우 생성이 가능하고, 수정 및 삭제의 경우 작성자와 동일한 경우만 가능합니다.
+ 댓글의 CRUD 기능을 지원합니다.
 
+
+  
 ## * ERD<br/>
 ![SpartaNews ERD](https://github.com/hyunki0523/SpartaNewsPjt/assets/122522460/8c69f313-7ba6-463b-bd98-c0343999e0f4)
 <br/><br/>
