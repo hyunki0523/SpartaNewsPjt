@@ -6,8 +6,19 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Article
 from .serializers import ArticleSerializer, CommentSerializer, ArticleDetailSerializer
 
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter
+
+# 페이지네이션 커스텀 클래스, settings 파일 안에 전역 셋팅 설정되어 있음.
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+
 
 class ArticleListAPIView(APIView):
+    filter_backends = [SearchFilter]
+    search_fields = ['title', 'content']
+    ordering_fields = ['title', 'created_at']
+    # 정렬하고자 하는 필드 추가 가능
     
     # 글 목록은 누구나 접근 가능하지만, 생성은 인증이 필요함
     def get_permissions(self):
@@ -16,9 +27,27 @@ class ArticleListAPIView(APIView):
         return []
     
     def get(self, request): # 글 목록 조회
-        articles = Article.objects.all()
-        serializers = ArticleSerializer(articles, many=True)
-        return Response(serializers.data)
+        articles = Article.objects.all().order_by("-pk")
+        
+        title = request.query_params.get('title', None)
+        content = request.query_params.get('content', None)
+        
+        # 검색
+        if title:
+            articles = articles.filter(title__icontains=title)
+        if content:
+            articles = articles.filter(content__icontains=content)
+            
+        # 정렬
+        ordering = self.request.query_params.get('ordering', None)
+        if ordering in self.ordering_fields:
+            articles = articles.order_by(ordering)
+        
+        paginator = CustomPagination()
+        result_page = paginator.paginate_queryset(articles, request)
+        serializer = ArticleSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+    
     
     def post(self, request): # 글 생성
         serializer = ArticleSerializer(data=request.data)
