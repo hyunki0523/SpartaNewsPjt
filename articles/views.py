@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Article
 from .serializers import ArticleSerializer, CommentSerializer
-
+from .models import Comment
 
 class ArticleListAPIView(APIView):
     
@@ -82,3 +82,12 @@ class CommentListAPIView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save(article=article)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+class LikedCommentsAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        liked_comments = Comment.objects.filter(likes=user)
+        serializer = CommentSerializer(liked_comments, many=True)
+        return Response(serializer.data)

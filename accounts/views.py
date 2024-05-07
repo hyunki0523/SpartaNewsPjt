@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .serializer import UserSerializer
 
 # Create your views here.
 
@@ -34,3 +36,11 @@ class signupAPIview(APIView):
             "username": user.username,
             "email": user.email,
         },status=201)
+    
+class ProfileAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
