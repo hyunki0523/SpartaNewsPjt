@@ -8,8 +8,12 @@
 
    * ### Project duration : 2024-05-03 ~ 2024-05-10
 
-Tech Explorers 의 협업으로 제작됨.
-
+* ### Tech Explorers 의 협업으로 제작됨.
+* ### 구성 :
+* 황승환	👑  |	INFP |	https://github.com/hideoutoasis/spartamarket_DRF_by_HSH |	https://blog.naver.com/sunbook24
+* 김도연	member |	ISTJ |		| https://sparkly-field-a92.notion.site/KDY-S-BLOG-d2eabf21b14b497eb4842a696977d06c?pvs=74	
+* 이현기	member |	ISTP |	https://github.com/hyunki0523 |	https://blog.naver.com/dldl5040
+* 옹석현	member |	ISTP |	https://github.com/ongsh98 |	https://blog.naver.com/dhd9808	
 
 ## * Environment & Tech stack
 Window 환경에서 Pycham 사용. 
@@ -25,76 +29,76 @@ API 기능 점검 : Postman 이용.
 Package|Version
 -----------------
 
-----|----|---
+|----|----|
 
-alembic                        |1.13.1
-asgiref                        |3.7.2
-asttokens                      |2.4.1
-beautifulsoup4                 |4.12.3
-blinker                        |1.7.0
-bs4                            |0.0.2
-certifi                        |2023.11.17
-cffi                           |1.16.0
-charset-normalizer             |3.3.2
-click                          |8.1.7
-colorama                       |0.4.6
-cryptography                   |42.0.1
-decorator                      |5.1.1
-Django                         |4.2
-django-environ                 |0.11.2
-django-extensions              |3.2.3
-django-seed                    |0.3.1
-djangorestframework            |3.15.1
-djangorestframework-simplejwt  |5.3.1
-et-xmlfile                     |1.1.0
-exceptiongroup                 |1.2.0
-executing                      |2.0.1
-Faker                          |24.4.0
-Flask                          |3.0.2
-Flask-Migrate                  |4.0.5
-Flask-SQLAlchemy               |3.1.1
-greenlet                       |3.0.3
-idna                           |3.6
-ipython                        |8.22.2
-itsdangerous                   |2.1.2
-jedi                           |0.19.1
-Jinja2                         |3.1.3
-Mako                           |1.3.2
-MarkupSafe                     |2.1.5
-matplotlib-inline              |0.1.6
-openpyxl                       |3.1.2
-parso                          |0.8.3
-pexpect                        |4.9.0
-pillow                         |10.2.0
-pip                            |24.0
-prompt-toolkit                 |3.0.43
-psycopg2                       |2.9.9
-ptyprocess                     |0.7.0
-pure-eval                      |0.2.2
-pycparser                      |2.21
-Pygments                       |2.17.2
-PyJWT                          |2.8.0
-pypng                          |0.20220715.0
-python-dateutil                |2.9.0.post0
-pytz                           |2023.3.post1
-qrcode                         |7.4.2
-requests                       |2.31.0
-Send2Trash                     |1.8.2
-setuptools                     |65.5.0
-six                            |1.16.0
-slack-bolt                     |1.18.1
-slack_sdk                      |3.26.2
-soupsieve                      |2.5
-SQLAlchemy                     |2.0.27
-sqlparse                       |0.4.4
-stack-data                     |0.6.3
-toposort                       |1.10
-traitlets                      |5.14.2
-typing_extensions              |4.10.0
-tzdata                         |2024.1
-urllib3                        |2.1.0
-wcwidth                        |0.2.13
-Werkzeug                       |3.0.1
+alembic                        | 1.13.1
+asgiref                        | 3.7.2
+asttokens                      | 2.4.1
+beautifulsoup4                 | 4.12.3
+blinker                        | 1.7.0
+bs4                            | 0.0.2
+certifi                        | 2023.11.17
+cffi                           | 1.16.0
+charset-normalizer             | 3.3.2
+click                          | 8.1.7
+colorama                       | 0.4.6
+cryptography                   | 42.0.1
+decorator                      | 5.1.1
+Django                         | 4.2
+django-environ                 | 0.11.2
+django-extensions              | 3.2.3
+django-seed                    | 0.3.1
+djangorestframework            | 3.15.1
+djangorestframework-simplejwt  | 5.3.1
+et-xmlfile                     | 1.1.0
+exceptiongroup                 | 1.2.0
+executing                      | 2.0.1
+Faker                          | 24.4.0
+Flask                          | 3.0.2
+Flask-Migrate                  | 4.0.5
+Flask-SQLAlchemy               | 3.1.1
+greenlet                       | 3.0.3
+idna                           | 3.6
+ipython                        | 8.22.2
+itsdangerous                   | 2.1.2
+jedi                           | 0.19.1
+Jinja2                         | 3.1.3
+Mako                           | 1.3.2
+MarkupSafe                     | 2.1.5
+matplotlib-inline              | 0.1.6
+openpyxl                       | 3.1.2
+parso                          | 0.8.3
+pexpect                        | 4.9.0
+pillow                         | 10.2.0
+pip                            | 24.0
+prompt-toolkit                 | 3.0.43
+psycopg2                       | 2.9.9
+ptyprocess                     | 0.7.0
+pure-eval                      | 0.2.2
+pycparser                      | 2.21
+Pygments                       | 2.17.2
+PyJWT                          | 2.8.0
+pypng                          | 0.20220715.0
+python-dateutil                | 2.9.0.post0
+pytz                           | 2023.3.post1
+qrcode                         | 7.4.2
+requests                       | 2.31.0
+Send2Trash                     | 1.8.2
+setuptools                     | 65.5.0
+six                            | 1.16.0
+slack-bolt                     | 1.18.1
+slack_sdk                      | 3.26.2
+soupsieve                      | 2.5
+SQLAlchemy                     | 2.0.27
+sqlparse                       | 0.4.4
+stack-data                     | 0.6.3
+toposort                       | 1.10
+traitlets                      | 5.14.2
+typing_extensions              | 4.10.0
+tzdata                         | 2024.1
+urllib3                        | 2.1.0
+wcwidth                        | 0.2.13
+Werkzeug                       | 3.0.1
 
 
 ## * Roadmap
