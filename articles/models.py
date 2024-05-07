@@ -7,8 +7,8 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    # 좋아요 기능에 필요한 author 필드 만들어야 함.
     
     def __str__(self):
         return self.title

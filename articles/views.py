@@ -5,9 +5,13 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Article
 from .serializers import ArticleSerializer, CommentSerializer
-from .models import Comment
+
 
 class ArticleListAPIView(APIView):
+    filter_backends = [SearchFilter]
+    search_fields = ['title', 'content']
+    ordering_fields = ['title', 'created_at']
+    # 정렬하고자 하는 필드 추가 가능
     
     # 글 목록은 누구나 접근 가능하지만, 생성은 인증이 필요함
     def get_permissions(self):
@@ -16,9 +20,27 @@ class ArticleListAPIView(APIView):
         return []
     
     def get(self, request): # 글 목록 조회
-        articles = Article.objects.all()
-        serializers = ArticleSerializer(articles, many=True)
-        return Response(serializers.data)
+        articles = Article.objects.all().order_by("-pk")
+        
+        title = request.query_params.get('title', None)
+        content = request.query_params.get('content', None)
+        
+        # 검색
+        if title:
+            articles = articles.filter(title__icontains=title)
+        if content:
+            articles = articles.filter(content__icontains=content)
+            
+        # 정렬
+        ordering = self.request.query_params.get('ordering', None)
+        if ordering in self.ordering_fields:
+            articles = articles.order_by(ordering)
+        
+        paginator = CustomPagination()
+        result_page = paginator.paginate_queryset(articles, request)
+        serializer = ArticleSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+    
     
     def post(self, request): # 글 생성
         serializer = ArticleSerializer(data=request.data)
@@ -35,18 +57,17 @@ class ArticleDetailAPIView(APIView):
             return [IsAuthenticated()]
         return []
     
-    
     def get_object(self, articleId):
         return get_object_or_404(Article, pk=articleId)
     
     def get(self,request, articleId): # 글 상세페이지
         article = self.get_object(articleId)
-        serializer = ArticleSerializer(article)
+        serializer = ArticleDetailSerializer(article)
         return Response(serializer.data)
     
     def put(self,request, articleId): # 글 수정
         article = self.get_object(articleId)
-        serializer = ArticleSerializer(article, data=request.data, partial=True)
+        serializer = ArticleDetailSerializer(article, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
