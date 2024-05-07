@@ -2,12 +2,19 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from .models import Article
 from .serializers import ArticleSerializer, CommentSerializer
 
 
 class ArticleListAPIView(APIView):
+    
+    # 글 목록은 누구나 접근 가능하지만, 생성은 인증이 필요함
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [ IsAuthenticated() ]
+        return []
+    
     def get(self, request): # 글 목록 조회
         articles = Article.objects.all()
         serializers = ArticleSerializer(articles, many=True)
@@ -21,6 +28,14 @@ class ArticleListAPIView(APIView):
 
 
 class ArticleDetailAPIView(APIView):
+    
+    # 상세페이지는 누구나 접근 가능하지만, 삭제와 수정은 인증이 필요하게 설정.
+    def get_permissions(self):
+        if self.request.method in ['PUT', 'DELETE']:
+            return [IsAuthenticated()]
+        return []
+    
+    
     def get_object(self, articleId):
         return get_object_or_404(Article, pk=articleId)
     
@@ -47,11 +62,10 @@ class CommentListAPIView(APIView):
     # 이 클래스 내부에서 부분적으로 접근제한을 설정할 수 있음
     # 이 경우 댓글 생성은 로그인한 유저만 접근 가능해야하므로 GET 요청으로 접근하여 조회 시에는 접근제한X, 
     # POST 요청으로 접근 시 로그인하고 권한부여받은 유저만 접근가능하게 설정
-    # 사용자 기능 만든 뒤 주석해제하여 사용하면 됨
-    # def get_permissions(self):
-    #     if self.request.method == 'POST':
-    #         return [ IsAuthenticated() ]
-    #     return []
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [ IsAuthenticated() ]
+        return []
     
     def get_object(self, articleId):
         return get_object_or_404(Article, pk=articleId)
