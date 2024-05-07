@@ -8,8 +8,9 @@
 
    * ### Project duration : 2024-05-03 ~ 2024-05-10
 
-* ### Tech Explorers 의 협업으로 제작됨.
-* ### 구성 :
+
+* ### Tech Explorers :
+|----|----|----|----|
 * 황승환	👑  |	INFP |	https://github.com/hideoutoasis/spartamarket_DRF_by_HSH |	https://blog.naver.com/sunbook24
 * 김도연	member |	ISTJ |		| https://sparkly-field-a92.notion.site/KDY-S-BLOG-d2eabf21b14b497eb4842a696977d06c?pvs=74	
 * 이현기	member |	ISTP |	https://github.com/hyunki0523 |	https://blog.naver.com/dldl5040
@@ -29,7 +30,7 @@ API 기능 점검 : Postman 이용.
 Package|Version
 -----------------
 
-|----|----|
+|----|----|----|----|
 
 alembic                        | 1.13.1
 asgiref                        | 3.7.2
