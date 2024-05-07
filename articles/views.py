@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Article
-from .serializers import ArticleSerializer, CommentSerializer
+from .serializers import ArticleSerializer, CommentSerializer, ArticleDetailSerializer
 
 
 class ArticleListAPIView(APIView):
@@ -35,18 +35,17 @@ class ArticleDetailAPIView(APIView):
             return [IsAuthenticated()]
         return []
     
-    
     def get_object(self, articleId):
         return get_object_or_404(Article, pk=articleId)
     
     def get(self,request, articleId): # 글 상세페이지
         article = self.get_object(articleId)
-        serializer = ArticleSerializer(article)
+        serializer = ArticleDetailSerializer(article)
         return Response(serializer.data)
     
     def put(self,request, articleId): # 글 수정
         article = self.get_object(articleId)
-        serializer = ArticleSerializer(article, data=request.data, partial=True)
+        serializer = ArticleDetailSerializer(article, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
