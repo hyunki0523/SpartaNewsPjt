@@ -111,10 +111,19 @@ class CommentListAPIView(APIView):
             serializer.save(article=article)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
+class LikedArticlesAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        liked_articles = Article.objects.filter(likes=user)
+        serializer = ArticleSerializer(liked_articles, many=True)
+        return Response(serializer.data)
+        
 class LikedCommentsAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    def get(self, request):
         user = request.user
         liked_comments = Comment.objects.filter(likes=user)
         serializer = CommentSerializer(liked_comments, many=True)
