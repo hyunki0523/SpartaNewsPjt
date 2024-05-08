@@ -8,13 +8,15 @@ from rest_framework.filters import SearchFilter
 from .models import Article, Comment
 from .serializers import ArticleSerializer, CommentSerializer, ArticleDetailSerializer
 
+from django.db.models import Count
+
 class CustomPagination(PageNumberPagination):
     page_size = 10
 
 class ArticleListAPIView(APIView):
     filter_backends = [SearchFilter]
     search_fields = ['title', 'content']
-    ordering_fields = ['title', 'created_at']
+    ordering_fields = ['title', 'created_at', 'like_count']
     # 정렬하고자 하는 필드 추가 가능
     
     # 글 목록은 누구나 접근 가능하지만, 생성은 인증이 필요함
@@ -24,7 +26,7 @@ class ArticleListAPIView(APIView):
         return []
     
     def get(self, request): # 글 목록 조회
-        articles = Article.objects.all().order_by("-pk")
+        articles = Article.objects.annotate(like_count=Count('likes')).order_by("-like_count", "-pk")
         
         title = request.query_params.get('title', None)
         content = request.query_params.get('content', None)
@@ -49,7 +51,7 @@ class ArticleListAPIView(APIView):
     def post(self, request): # 글 생성
         serializer = ArticleSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(author=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
