@@ -3,9 +3,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from .models import Article
-from .serializers import ArticleSerializer, CommentSerializer
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter
+from .models import Article, Comment
+from .serializers import ArticleSerializer, CommentSerializer, ArticleDetailSerializer
 
+class CustomPagination(PageNumberPagination):
+    page_size = 10
 
 class ArticleListAPIView(APIView):
     filter_backends = [SearchFilter]
@@ -67,22 +71,25 @@ class ArticleDetailAPIView(APIView):
     
     def put(self,request, articleId): # 글 수정
         article = self.get_object(articleId)
-        serializer = ArticleDetailSerializer(article, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+        if article.author == request.user:
+            serializer = ArticleDetailSerializer(article, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        else:
+            return Response({"error": "You are not the author of this product."}, status=status.HTTP_403_FORBIDDEN)
     
     def delete(self,request, articleId): # 글 삭제
         article = self.get_object(articleId)
-        article.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if article.author == request.user:
+            article.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"error": "You are not the author of this product."}, status=status.HTTP_403_FORBIDDEN)
     
     
 class CommentListAPIView(APIView):
     
-    # 이 클래스 내부에서 부분적으로 접근제한을 설정할 수 있음
-    # 이 경우 댓글 생성은 로그인한 유저만 접근 가능해야하므로 GET 요청으로 접근하여 조회 시에는 접근제한X, 
-    # POST 요청으로 접근 시 로그인하고 권한부여받은 유저만 접근가능하게 설정
     def get_permissions(self):
         if self.request.method == 'POST':
             return [ IsAuthenticated() ]
