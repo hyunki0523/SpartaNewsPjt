@@ -19,9 +19,9 @@ class signupAPIview(APIView):
         if not (email or not username):
             return Response({"error": "email and username is required"},status=400)
         if get_user_model().objects.filter(email=email).exists():
-            return Response({"error": "email is required"},status=400)
+            return Response({"error": "email is required, email must be unique"},status=400)
         if get_user_model().objects.filter(username=username).exists():
-            return Response({"error": "username is required"}, status=400)
+            return Response({"error": "username is required username must be unique"}, status=400)
 
         user = get_user_model().objects.create_user(
             username=username,

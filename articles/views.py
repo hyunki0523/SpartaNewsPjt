@@ -26,7 +26,7 @@ class ArticleListAPIView(APIView):
         return []
     
     def get(self, request): # 글 목록 조회
-        articles = Article.objects.annotate(like_count=Count('likes')).order_by("-like_count", "-pk")
+        articles = Article.objects.annotate(like_count=Count('likes')).order_by("-pk","-like_count")
         
         title = request.query_params.get('title', None)
         content = request.query_params.get('content', None)
