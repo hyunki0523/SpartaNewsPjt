@@ -1,11 +1,12 @@
 from datetime import datetime
-
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .serializer import UserSerializer
+from .models import User
 
 # Create your views here.
 
@@ -40,7 +41,7 @@ class signupAPIview(APIView):
 class ProfileAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        user = request.user
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
         serializer = UserSerializer(user)
         return Response(serializer.data)
