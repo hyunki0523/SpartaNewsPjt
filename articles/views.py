@@ -26,7 +26,11 @@ class ArticleListAPIView(APIView):
         return []
     
     def get(self, request): # 글 목록 조회
+<<<<<<< HEAD
         articles = Article.objects.annotate(like_count=Count('likes')).order_by("-pk","-like_count")
+=======
+        articles = Article.objects.annotate(like_count=Count('likes'))
+>>>>>>> 6d26591212d5b25ba375b95b01b6762ff96ebff0
         
         title = request.query_params.get('title', None)
         content = request.query_params.get('content', None)
@@ -41,6 +45,9 @@ class ArticleListAPIView(APIView):
         ordering = self.request.query_params.get('ordering', None)
         if ordering in self.ordering_fields:
             articles = articles.order_by(ordering)
+        else:
+            # 기본 정렬 설정 (좋아요 순, 최신순)
+            articles = articles.order_by("-like_count", "-created_at")
         
         paginator = CustomPagination()
         result_page = paginator.paginate_queryset(articles, request)
