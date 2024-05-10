@@ -7,6 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter
 from .models import Article, Comment
 from .serializers import ArticleSerializer, CommentSerializer, ArticleDetailSerializer
+from django.http import JsonResponse
 
 from django.db.models import Count
 
@@ -137,3 +138,12 @@ class LikedCommentsAPIView(APIView):
         liked_comments = Comment.objects.filter(likes=user)
         serializer = CommentSerializer(liked_comments, many=True)
         return Response(serializer.data)
+    
+class ToggleLikeAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request, articleId):
+        article = get_object_or_404(Article, pk=articleId)
+        user = request.user
+        article.toggle_like(user)
+        return JsonResponse({"message": "좋아요가 토글되었습니다."})

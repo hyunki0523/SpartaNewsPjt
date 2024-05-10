@@ -8,4 +8,5 @@ urlpatterns = [
     path("<int:articleId>/comments", views.CommentListAPIView.as_view(), name="comment_list"),
     path('liked-articles/', views.LikedArticlesAPIView.as_view(), name='liked-articles'),
     path('liked-comments/', views.LikedCommentsAPIView.as_view(), name='liked-comments'),
+    path("<int:articleId>/toggle-like/", views.ToggleLikeAPIView.as_view(), name="toggle_like"),
 ]
